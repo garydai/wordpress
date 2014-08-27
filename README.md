@@ -1,4 +1,2 @@
-wordpress
-=========
-
-my wordpress
+mywordpress
+===========

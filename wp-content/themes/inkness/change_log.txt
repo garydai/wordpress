@@ -1,0 +1,58 @@
+Version 1.0
+
+	i) Initial Release.
+	
+Version 1.0.0.1
+
+	i) Corrected License Information
+	ii) Translations fixed.
+	ii) Minor Bug Fixes
+
+Version 1.0.0.2
+
+	i) Fixed Bug with google fonts.
+	
+Version 1.0.0.3
+
+	i) Minor Fixes.
+	ii) Change calling of Equal Heights after 1.25 seconds		
+	iii) Removed the unnecessary, unused bxslider.
+	
+Version 1.0.0.4
+
+	i) Displaying Content on Post Pages.	
+	
+Version 1.0.0.5
+
+	i) Fixed Major Bug Related to Behaviour Of Screenshots on Different Devices
+	ii) Delayed Nivo Slider Animations
+	
+Version 1.0.1
+
+	i) Translation Issues.
+	ii) Fixed menu Alignment
+	
+Version 1.0.1.1
+
+	i) Added Editor Style
+	ii)	Added the Responsive Layout Tag	
+
+Version 1.0.1.2
+
+	i) Now Social Links open in a New Tab.
+	ii)	Changed logo size, as requested by Users. Now Logo can be 590px Wide. 
+	
+Version 1.0.2
+
+	i) Fixed Sanitization/Security Issues.
+	ii) Updated Support Forum Links.
+	iii) Removed Custom Header/Footer as they are Plugin Territory.	
+	
+Version 1.0.2.1
+
+	i) Translation Update	
+	
+Version 1.0.2.2
+
+	i) Corrected Spelling which was being displayed on Front End.
+	ii) Fixed issues with Full Width Page Template. Now slider is full screen width.	
