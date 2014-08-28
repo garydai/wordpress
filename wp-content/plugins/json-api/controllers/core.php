@@ -139,11 +139,25 @@ class JSON_API_Core_Controller {
 
 	
   }
+
+  public function update_image_comment()
+
+  {
+
+
+	global $json_api;
+	global $wpdb;
+        $id= $json_api->query->id;
+	$query = "update user_comment set showed = 1 where id = {$id} ";
+	$wpdb->get_results($query);
+	return array("reuslt" => "1");
+	
+	
+  }
   public function my_get_category_posts()
   {
 	
 	global $json_api;
-
 //	echo 2;
 	$category = $json_api->query->category;
 	$result = _get_category_posts($category);
