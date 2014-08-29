@@ -36,7 +36,18 @@ class JSON_API_Core_Controller {
     }
   }
 
+  public function set_device_token()
+  {
 
+
+	global $wpdb;
+	global $json_api;
+	$device_id = $json_api->query->device_id;
+	$device_token = $json_api->query->device_token;
+	$query = "insert device_token set device_id = '{$device_id}', device_token = '{$device_token}' ";
+	$wpdb->get_results($query);
+	return array("result" => "success");
+  }
   public function send_feedback()
   {
 
@@ -73,11 +84,15 @@ class JSON_API_Core_Controller {
         global $wpdb;
         global $json_api;
 	//page 从1开始
-	$page    = $json_api->query->page;
+#	$page    = $json_api->query->page;
 //	$page  -= 1;
 	$num	 = $json_api->query->num;
-	$page *= $num;
-        $query   = "select * from talk_topic order by lastUpdate desc LIMIT {$page},{$num}  ";
+	$last_id   = $json_api->query->last_id;
+        $query   = "select * from talk_topic order by lastUpdate desc,  id desc LIMIT {$num}  ";
+	if($last_id)
+	{
+		$query ="select * from talk_topic where id < {$last_id}  order by lastUpdate  desc, id desc LIMIT {$num}  ";      
+	}
 //	echo $query;
 	$result = $wpdb->get_results($query);
 	return array("topic" => $result);
@@ -96,10 +111,16 @@ class JSON_API_Core_Controller {
         $content = $json_api->query->content;
         $date    = $json_api->query->date;
 	$topic_id = $json_api->query->topic_id;
+	if(content == "")
+	{
+		return array('result' => 'empty content');
+	}
         $query = "insert talk_comment set user = '{$user}', content = '{$content}', date = '{$date}', topic_id = {$topic_id}   ";
         $wpdb->get_results($query);
 	$query = "update talk_topic set lastUpdate = '{$date}' where id = {$topic_id}";
 	$wpdb->get_results($query);
+	$query = "update talk_topic set replay_count = replay_count + 1  where id = {$topic_id}";
+        $wpdb->get_results($query);
 	return array('result' => 'success');
 	
 
@@ -110,16 +131,22 @@ class JSON_API_Core_Controller {
 
         global $wpdb;
         global $json_api;
-        $page    = $json_api->query->page;
         $num     = $json_api->query->num;
-	$page *= $num;
 	$topic   = $json_api->query->topic_id;
-        $query   = "select * from talk_comment where topic_id = {$topic} order by date desc LIMIT {$page},{$num}  ";
-        $result = $wpdb->get_results($query);
-//	echo $query;
+
+        $last_id   = $json_api->query->last_id;
+        $query   = "select * from talk_comment where topic_id = {$topic} order by date desc,  id desc LIMIT {$num}  ";
+        if($last_id)
+        {
+                $query ="select * from talk_comment where topic_id = {$topic} and  id < {$last_id}  order by date  desc, id desc LIMIT {$num}  ";
+        }
+	$result = $wpdb->get_results($query);
 	$query   = "update talk_topic set count = count + 1 where id = {$topic} ";
 	$wpdb->get_results($query);
-        return array("comment" => $result);
+        $query   = "select replay_count from talk_topic  where id = {$topic} ";
+        $count = $wpdb->get_results($query);
+	
+        return array("comment" => $result , "replay_count" => $count[0]->replay_count);
 
 
 
