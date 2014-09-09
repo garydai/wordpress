@@ -28,7 +28,7 @@ require( dirname(__FILE__) . '/wp-load.php' );
 		{
 			system("/home/admin/php/bin/php /home/admin/nginx/html/wordpress/pusher.php '{$row->device_token}' " );
 			$query = "update user_comment set notified = 1 where id = {$row->id} ";
-			$wpdb->get_results($query);
+	//		$wpdb->get_results($query);
 		}
 	}
 
