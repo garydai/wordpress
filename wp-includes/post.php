@@ -5957,8 +5957,9 @@ function _get_comment($user, $device_id)
 			if($result[0]->comment)
 			{
 				
-				$query = "select comment, image_url from user_comment where comment != ''  and id != {$id} LIMIT 5 ";	
-				$result2 = $wpdb->get_results($query);
+			//	$query = "select comment, image_url from user_comment where comment != ''  and id != {$id} LIMIT 5 ";	
+			//	$result2 = $wpdb->get_results($query);
+				$result2 = array();
 				array_push($result2, $result[0]);
 				return array ("result" => "1", "comment" => "1", "comment_content" => $result2);
 			}
