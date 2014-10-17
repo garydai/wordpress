@@ -5833,10 +5833,18 @@ function _get_like_image($device_id)
     //    {
 
 	//	$id = explode(",", $ids[0]->like_post_id);
-		$query = "select gallery_id, date, image_url, like_count from wp_bwg_image where id in ( {$query1}) ORDER BY date DESC";
+		$query = "select id, gallery_id, date, image_url, like_count, user_like from wp_bwg_image where id in ( {$query1}) ORDER BY date DESC";
 //		return $query;
+		$result = $wpdb->get_results($query);
+	
+        foreach($result as &$json)
+        {
+
+                $json->user_like = 1;
+	}	
 		return	array(
-				"image" => $wpdb->get_results($query)
+
+				"image" => $result
 				);
 
 			
